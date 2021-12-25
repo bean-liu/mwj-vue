@@ -29,19 +29,32 @@ export default {
     },
     methods:{
         login(){
+            var _this = this;
+            console.log(this.$store.state)
+
             this.$axios.post('/login',{
                username: this.loginForm.username,
                password: this.loginForm.password 
             })
             .then(successResponse=>{
                 if(successResponse.data.code === 200){
-                    this.$router.replace({path: '/index'})
+                    _this.$store.commit('login', _this.loginForm)
+                    var path = this.$route.query.redirect;
+                    console.log(path)
+                    this.$router.replace({path: path === '/' || path === undefined? '/index' : path})
                 }
             })
             // .catch(failResponse=>{
                 
             // })
         }
+    },
+    beforeCreate: function(){
+        // console.log('mounted')
+        // window.localStorage.setItem('user', null)
+        // window.localStorage.removeItem('user')
+        // var username = window.localStorage.getItem('user' || '[]') == 'null' ? '空的' : JSON.parse(window.localStorage.getItem('user' || '[]')).username
+        // console.log(username);
     }
 }
 </script>
