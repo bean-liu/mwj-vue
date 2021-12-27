@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
 import AppIndex from '../components/home/Appindex.vue'
 import Login from '../components/Login.vue'
+import Home from '../components/Home.vue'
 
 Vue.use(VueRouter)
 
@@ -14,12 +15,20 @@ const routes = [
     component: Login
   },
   {
-    path: '/index',
-    name: 'AppIndex',
-    component: AppIndex,
-    meta: {
-      requireAuth: true
-    }
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    redirect: '/index',
+    children: [
+      {
+        path: '/index',
+        name: 'AppIndex',
+        component: AppIndex,
+        meta: {
+          requireAuth: true
+        }
+      }
+    ]
   }
 ]
 
