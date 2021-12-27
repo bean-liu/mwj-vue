@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import AppIndex from '../components/home/Appindex.vue'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
+import LibraryIndex from '../components/library/LibraryIndex.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,14 @@ const routes = [
         path: '/index',
         name: 'AppIndex',
         component: AppIndex,
+        meta: {
+          requireAuth: true
+        }
+      },
+      {
+        path: '/library',
+        name: 'Library',
+        component: LibraryIndex,
         meta: {
           requireAuth: true
         }
