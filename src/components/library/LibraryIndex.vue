@@ -2,11 +2,11 @@
     <div>
         <el-container>
             <el-aside style="width: 200px; margin-top:20px">
-                <!-- <switch></switch> -->
-                <SideMenu></SideMenu>
+                <switch></switch>
+                <SideMenu @indexSelect="listByCategory" ref="sideMenu"></SideMenu>
             </el-aside>
             <el-main>
-                <Books class="books-area"></Books>
+                <Books class="books-area" ref="booksArea"></Books>
             </el-main>
         </el-container>
     </div>
@@ -17,7 +17,21 @@ import SideMenu from './SideMenu.vue'
 import Books from './Books.vue'
     export default {
         name: 'AppLibrary',
-        components: {SideMenu, Books}
+        components: {SideMenu, Books},
+        methods:{
+            listByCategory(){
+                var _this = this;
+                var cid = this.$refs.sideMenu.cid
+                var url = 'categories/' + cid + '/books'
+                this.$axios.get(url).then(
+                    resp=>{
+                        if(resp && resp.status === 200){
+                            _this.$refs.booksArea.books = resp.data
+                        }
+                    }
+                )
+            }
+        }
     }
 </script>
 
